@@ -4,7 +4,16 @@
 import socket
 import sys
 import time
+import platform
+import os
 from colorama import *
+
+def clear():
+    if "Windows" in platform.platform():
+        os.system('cls')
+
+    else:
+        os.system('clear')
 
 def mainShell():
     # criando socket e recebendo conexao
@@ -29,7 +38,10 @@ def mainShell():
                 conn.close()
                 break
 
-            if len(str.encode(shell)) > 0:
+            elif shell == 'clear' or shell == 'cls':
+                clear()
+
+            elif len(str.encode(shell)) > 0:
                 conn.send(str.encode(shell))
                 c_responde = str(conn.recv(1024), 'utf-8', errors="ignore")
                 print(c_responde, end="")
@@ -44,13 +56,13 @@ def mainShell():
             s.close()
             mainShell()
 
-
 def main():
     init(autoreset=True)
     mainShell()
 
 try:
-    main():
+    clear()
+    main()
 
 except Exception as e:
     print(f"{Fore.RED}[!]Ocorreu algum erro: {e}")
